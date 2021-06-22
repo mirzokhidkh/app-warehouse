@@ -77,7 +77,7 @@ public class DashboardService {
 
     public List<InputProduct> getAllExpiringInputProduct() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        java.sql.Date date = new java.sql.Date(timestamp.getTime());
+        Date date = new Date(timestamp.getTime());
         return inputProductRepository.findAllExpiring(date);
     }
 

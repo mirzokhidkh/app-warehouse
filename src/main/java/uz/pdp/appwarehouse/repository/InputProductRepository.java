@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import uz.pdp.appwarehouse.entity.InputProduct;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -13,6 +13,6 @@ public interface InputProductRepository extends JpaRepository<InputProduct,Integ
 
     List<InputProduct> findAllByInputId(Integer input_id);
 
-    @Query(value = "select * from input_product where expire_date <= :date;",nativeQuery = true)
-    List<InputProduct> findAllExpiring(Date date);
+    @Query(value = "select * from input_product where expire_date<=:ex_date",nativeQuery = true)
+    List<InputProduct> findAllExpiring(Date ex_date);
 }
