@@ -17,11 +17,6 @@ public class ClientService {
     ClientRepository clientRepository;
 
     public Result add(ClientDto clientDto) {
-        boolean existsByName = clientRepository.existsByName(clientDto.getName());
-        if (existsByName) {
-            return new Result("A Client with such a name already exists", false);
-        }
-
         boolean existsByPhoneNumber = clientRepository.existsByPhoneNumber(clientDto.getPhoneNumber());
         if (existsByPhoneNumber) {
             return new Result("A Client with such a phone number already exists", false);
@@ -50,10 +45,6 @@ public class ClientService {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
             return new Result("Client not found", false);
-        }
-        boolean existsByName = clientRepository.existsByName(clientDto.getName());
-        if (existsByName) {
-            return new Result("A Client with such a name already exists", false);
         }
 
         boolean existsByPhoneNumber = clientRepository.existsByPhoneNumber(clientDto.getPhoneNumber());

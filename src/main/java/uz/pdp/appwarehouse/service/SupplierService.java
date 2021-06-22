@@ -19,11 +19,6 @@ public class SupplierService {
     SupplierRepository supplierRepository;
 
     public Result add(SupplierDto supplierDto) {
-        boolean existsByName = supplierRepository.existsByName(supplierDto.getName());
-        if (existsByName) {
-            return new Result("A supplier with such a name already exists", false);
-        }
-
         boolean existsByPhoneNumber = supplierRepository.existsByPhoneNumber(supplierDto.getPhoneNumber());
         if (existsByPhoneNumber) {
             return new Result("A supplier with such a phone number already exists", false);
@@ -52,10 +47,6 @@ public class SupplierService {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
         if (optionalSupplier.isEmpty()) {
             return new Result("Supplier not found", false);
-        }
-        boolean existsByName = supplierRepository.existsByName(supplierDto.getName());
-        if (existsByName) {
-            return new Result("A supplier with such a name already exists", false);
         }
 
         boolean existsByPhoneNumber = supplierRepository.existsByPhoneNumber(supplierDto.getPhoneNumber());

@@ -6,6 +6,5 @@ import uz.pdp.appwarehouse.entity.Supplier;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier,Integer> {
-    boolean existsByName(String name);
     boolean existsByPhoneNumber(String phoneNumber);
 }

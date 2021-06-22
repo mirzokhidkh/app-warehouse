@@ -7,5 +7,4 @@ import uz.pdp.appwarehouse.entity.Category;
 
 @Repository
 public interface AttachmentRepository extends JpaRepository<Attachment,Integer> {
-//    boolean existsByName(String name);
 }
