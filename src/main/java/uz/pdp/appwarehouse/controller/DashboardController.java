@@ -21,16 +21,24 @@ public class DashboardController {
     @Autowired
     DashboardService dashboardService;
 
+    // Kunlik kirim bo’lgan mahsulotlar (qiymati, umumiy summasi)
 
     @GetMapping("/daily-input-product")
     public List<InputProduct> getDailyInputProduct(){
         return dashboardService.getDailyInputProducts();
     }
 
+
+    // Kunlik eng ko’p chiqim qilingan mahsulotlar
+
     @GetMapping("/daily-the-most-out-product")
     public List<OutputProduct> getDailyOutputProduct(){
         return dashboardService.getDailyTheMostOutputProducts();
     }
+
+
+
+    //    Yaroqlilik muddati yetib qolgan mahsulotlarni olish.
 
     @GetMapping("/expiring-input-product")
     public List<InputProduct> getAllExpiringInputProduct(){
