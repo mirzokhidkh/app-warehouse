@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import uz.pdp.appwarehouse.entity.InputProduct;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Repository
