@@ -55,7 +55,7 @@ public class CategoryService {
         if (optionalCategory.isEmpty()) {
             return new Result("Category not found",false);
         }
-        Category category = new Category();
+        Category category = optionalCategory.get();
         boolean existsByName = categoryRepository.existsByName(categoryDto.getName());
         if (existsByName) {
             return new Result("This category already exists",false);
