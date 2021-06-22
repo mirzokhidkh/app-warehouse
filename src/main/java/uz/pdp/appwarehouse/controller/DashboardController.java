@@ -3,6 +3,7 @@ package uz.pdp.appwarehouse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.appwarehouse.entity.InputProduct;
 import uz.pdp.appwarehouse.entity.OutputProduct;
@@ -48,8 +49,8 @@ public class DashboardController {
 //    tizim ogohlantirishi kerak. Bunda ogohlantiriladigan vaqtni admin kiritib qo’yadi.
 
     @GetMapping("/will-expired-input-product")
-    public List<InputProduct> getWillBeExpiredInputProduct() {
-        return dashboardService.warnToWillBeExpiredProduct();
+    public List<InputProduct> getWillBeExpiredInputProduct(@RequestParam Integer cerDay) {
+        return dashboardService.warnToWillBeExpiredProduct(cerDay);
     }
 
 

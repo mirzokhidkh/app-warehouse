@@ -90,12 +90,11 @@ public class DashboardService {
 //    Mahsulotlarning yaroqlilik muddatining tugashiga ma’lum bir vaqt qolganida
 //    tizim ogohlantirishi kerak. Bunda ogohlantiriladigan vaqtni admin kiritib qo’yadi.
 
-    public List<InputProduct> warnToWillBeExpiredProduct() {
-        int certainDay = 8;
+    public List<InputProduct> warnToWillBeExpiredProduct(Integer certainDay) {
         LocalDate localDate = LocalDate.now();
         LocalDate certainDate = localDate.plusDays(certainDay);
         java.sql.Date start = java.sql.Date.valueOf(localDate);
-        java.sql.Date end = java.sql.Date.valueOf(certainDate.plusDays(1));
+        java.sql.Date end = java.sql.Date.valueOf(certainDate);
         return inputProductRepository.findAllByWillBeExpired(start, end);
     }
 
