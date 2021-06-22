@@ -24,7 +24,7 @@ public class DashboardController {
     // Kunlik kirim bo’lgan mahsulotlar (qiymati, umumiy summasi)
 
     @GetMapping("/daily-input-product")
-    public List<InputProduct> getDailyInputProduct(){
+    public List<InputProduct> getDailyInputProduct() {
         return dashboardService.getDailyInputProducts();
     }
 
@@ -32,16 +32,25 @@ public class DashboardController {
     // Kunlik eng ko’p chiqim qilingan mahsulotlar
 
     @GetMapping("/daily-the-most-out-product")
-    public List<OutputProduct> getDailyOutputProduct(){
+    public List<OutputProduct> getDailyOutputProduct() {
         return dashboardService.getDailyTheMostOutputProducts();
     }
-
 
 
     //    Yaroqlilik muddati yetib qolgan mahsulotlarni olish.
 
     @GetMapping("/expiring-input-product")
-    public List<InputProduct> getAllExpiringInputProduct(){
+    public List<InputProduct> getAllExpiringInputProduct() {
         return dashboardService.getAllExpiringInputProduct();
     }
+
+    //    Mahsulotlarning yaroqlilik muddatining tugashiga ma’lum bir vaqt qolganida
+//    tizim ogohlantirishi kerak. Bunda ogohlantiriladigan vaqtni admin kiritib qo’yadi.
+
+    @GetMapping("/will-expired-input-product")
+    public List<InputProduct> getWillBeExpiredInputProduct() {
+        return dashboardService.warnToWillBeExpiredProduct();
+    }
+
+
 }

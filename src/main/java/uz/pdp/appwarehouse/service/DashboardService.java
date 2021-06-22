@@ -6,12 +6,14 @@ import uz.pdp.appwarehouse.entity.Input;
 import uz.pdp.appwarehouse.entity.InputProduct;
 import uz.pdp.appwarehouse.entity.Output;
 import uz.pdp.appwarehouse.entity.OutputProduct;
+import uz.pdp.appwarehouse.payload.Result;
 import uz.pdp.appwarehouse.repository.InputProductRepository;
 import uz.pdp.appwarehouse.repository.InputRepository;
 import uz.pdp.appwarehouse.repository.OutputProductRepository;
 import uz.pdp.appwarehouse.repository.OutputRepository;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,7 +74,6 @@ public class DashboardService {
     }
 
 
-
 //    Yaroqlilik muddati yetib qolgan mahsulotlarni olish.
 
     public List<InputProduct> getAllExpiringInputProduct() {
@@ -80,6 +81,24 @@ public class DashboardService {
         Date date = new Date(timestamp.getTime());
         return inputProductRepository.findAllExpiring(date);
     }
+
+
+/**
+ * 11 Notification
+ */
+
+//    Mahsulotlarning yaroqlilik muddatining tugashiga ma’lum bir vaqt qolganida
+//    tizim ogohlantirishi kerak. Bunda ogohlantiriladigan vaqtni admin kiritib qo’yadi.
+
+    public List<InputProduct> warnToWillBeExpiredProduct() {
+        int certainDay = 8;
+        LocalDate localDate = LocalDate.now();
+        LocalDate certainDate = localDate.plusDays(certainDay);
+        java.sql.Date start = java.sql.Date.valueOf(localDate);
+        java.sql.Date end = java.sql.Date.valueOf(certainDate.plusDays(1));
+        return inputProductRepository.findAllByWillBeExpired(start, end);
+    }
+
 
     private Date getStartOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
