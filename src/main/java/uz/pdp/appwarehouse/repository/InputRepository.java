@@ -13,6 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface InputRepository extends JpaRepository<Input,Integer> {
+    boolean existsByFactureNumber(String factureNumber);
+    boolean existsByFactureNumberAndIdNot(String factureNumber, Integer id);
+
+
     Optional<Input> findAllByDateGreaterThanEqualAndDateLessThanEqual(Timestamp date1, Timestamp date2);
 
     @Query(value = "select * from input where date BETWEEN :startDate AND :endDate",nativeQuery = true)

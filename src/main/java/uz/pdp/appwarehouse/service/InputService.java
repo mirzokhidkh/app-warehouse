@@ -56,6 +56,11 @@ public class InputService {
 
         }
 
+        boolean existsByFactureNumber = inputRepository.existsByFactureNumber(inputDto.getFactureNumber());
+        if (existsByFactureNumber) {
+            return new Result("A input with such a facture number already exist", false);
+        }
+
         Input input = new Input();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         input.setDate(timestamp);
@@ -93,6 +98,12 @@ public class InputService {
         }
 
         Input input = optionalInput.get();
+
+        boolean existsByFactureNumber = inputRepository.existsByFactureNumberAndIdNot(inputDto.getFactureNumber(), input.getId());
+        if (existsByFactureNumber) {
+            return new Result("A input with such a facture number already exist", false);
+        }
+
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //        input.setDate(inputDto.getDate());
         input.setDate(timestamp);

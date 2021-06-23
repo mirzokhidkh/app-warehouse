@@ -1,14 +1,16 @@
 package uz.pdp.appwarehouse.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class AttachmentContent {
     @Id
@@ -18,6 +20,20 @@ public class AttachmentContent {
     @Column(nullable = false)
     private byte[] bytes;
 
-    @OneToOne
+    @OneToOne(optional = false)
     protected Attachment attachment;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AttachmentContent that = (AttachmentContent) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 1945976523;
+    }
 }

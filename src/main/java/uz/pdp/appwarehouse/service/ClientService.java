@@ -47,14 +47,15 @@ public class ClientService {
             return new Result("Client not found", false);
         }
 
-        boolean existsByPhoneNumber = clientRepository.existsByPhoneNumber(clientDto.getPhoneNumber());
+        boolean existsByPhoneNumber = clientRepository.existsByPhoneNumberAndIdNot(clientDto.getPhoneNumber(),id);
         if (existsByPhoneNumber) {
             return new Result("A Client with such a phone number already exists", false);
         }
-        Client Client = optionalClient.get();
-        Client.setName(clientDto.getName());
-        Client.setPhoneNumber(Client.getPhoneNumber());
-        clientRepository.save(Client);
+
+        Client client = optionalClient.get();
+        client.setName(clientDto.getName());
+        client.setPhoneNumber(client.getPhoneNumber());
+        clientRepository.save(client);
         return new Result("Client edited", true);
     }
 

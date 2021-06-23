@@ -55,6 +55,11 @@ public class OutputService {
 
         }
 
+        boolean existsByFactureNumber = outputRepository.existsByFactureNumber(outputDto.getFactureNumber());
+        if (existsByFactureNumber) {
+            return new Result("A output with such a facture number already exist", false);
+        }
+
         Output output = new Output();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 //        output.setDate(outputDto.getDate());
@@ -89,6 +94,11 @@ public class OutputService {
         if (optionalCurrency.isEmpty()) {
             return new Result("There is no such currency unit", false);
 
+        }
+
+        boolean existsByFactureNumber = outputRepository.existsByFactureNumberAndIdNot(outputDto.getFactureNumber(),id);
+        if (existsByFactureNumber) {
+            return new Result("A output with such a facture number already exist", false);
         }
 
         Output output = optionalOutput.get();

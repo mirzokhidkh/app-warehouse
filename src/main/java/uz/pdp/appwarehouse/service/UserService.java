@@ -56,7 +56,8 @@ public class UserService {
             return new Result("User not found", false);
         }
 
-        boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(userDto.getPhoneNumber());
+
+        boolean existsByPhoneNumber = userRepository.existsByPhoneNumberAndIdNot(userDto.getPhoneNumber(),id);
         if (existsByPhoneNumber) {
             return new Result("A user with such a phone number already exists", false);
         }

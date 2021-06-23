@@ -26,7 +26,7 @@ public class SupplierService {
 
         Supplier supplier = new Supplier();
         supplier.setName(supplierDto.getName());
-        supplier.setPhoneNumber(supplier.getPhoneNumber());
+        supplier.setPhoneNumber(supplierDto.getPhoneNumber());
         supplierRepository.save(supplier);
         return new Result("Supplier saved", true);
     }
@@ -49,13 +49,14 @@ public class SupplierService {
             return new Result("Supplier not found", false);
         }
 
-        boolean existsByPhoneNumber = supplierRepository.existsByPhoneNumber(supplierDto.getPhoneNumber());
+        boolean existsByPhoneNumber = supplierRepository.existsByPhoneNumberAndIdNot(supplierDto.getPhoneNumber(),id);
         if (existsByPhoneNumber) {
             return new Result("A supplier with such a phone number already exists", false);
         }
+
         Supplier supplier = optionalSupplier.get();
         supplier.setName(supplierDto.getName());
-        supplier.setPhoneNumber(supplier.getPhoneNumber());
+        supplier.setPhoneNumber(supplierDto.getPhoneNumber());
         supplierRepository.save(supplier);
         return new Result("Supplier edited", true);
     }

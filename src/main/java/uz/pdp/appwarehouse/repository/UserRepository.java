@@ -7,4 +7,5 @@ import uz.pdp.appwarehouse.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
     boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByPhoneNumberAndIdNot(String phoneNumber, Integer id);
 }

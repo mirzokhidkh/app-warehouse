@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface OutputRepository extends JpaRepository<Output,Integer> {
+    boolean existsByFactureNumber(String factureNumber);
+    boolean existsByFactureNumberAndIdNot(String factureNumber, Integer id);
+
     @Query(value = "select * from output where date BETWEEN :startDate AND :endDate",nativeQuery = true)
     List<Output> getOutputIdBetweenDates(@Param("startDate") Date startDate, @Param("endDate")Date endDate);
 }

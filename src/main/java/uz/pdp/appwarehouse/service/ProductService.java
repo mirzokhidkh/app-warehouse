@@ -54,11 +54,19 @@ public class ProductService {
         if (optionalCategory.isEmpty()) {
             return new Result("Such a category doesn't exist", false);
         }
-        Optional<Attachment> optionalAttachment = attachmentRepository.findById(productDto.getPhotoId());
-        if (optionalAttachment.isEmpty()) {
-            return new Result("Such a photo doesn't exist", false);
 
+        Product product = new Product();
+
+        Optional<Attachment> optionalAttachment=null;
+        if (productDto.getPhotoId()!=null) {
+            optionalAttachment = attachmentRepository.findById(productDto.getPhotoId());
+            if (optionalAttachment.isEmpty()) {
+                return new Result("Such a photo doesn't exist", false);
+
+            }
+            product.setPhoto(optionalAttachment.get());
         }
+
 
         Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
         if (optionalMeasurement.isEmpty()) {
@@ -66,12 +74,10 @@ public class ProductService {
 
         }
 
-        Product product = new Product();
         product.setName(productDto.getName());
         List<Product> productList = getAll();
         product.setCode(generateCode(productList.size())); //todo generate code automatically
         product.setCategory(optionalCategory.get());
-        product.setPhoto(optionalAttachment.get());
         product.setMeasurement(optionalMeasurement.get());
 
         productRepository.save(product);
@@ -93,11 +99,19 @@ public class ProductService {
         if (optionalCategory.isEmpty()) {
             return new Result("Such a category doesn't exist", false);
         }
-        Optional<Attachment> optionalAttachment = attachmentRepository.findById(productDto.getPhotoId());
-        if (optionalAttachment.isEmpty()) {
-            return new Result("Such a photo doesn't exist", false);
 
+        Product product = optionalProduct.get();
+
+        Optional<Attachment> optionalAttachment;
+        if (productDto.getPhotoId()!=null) {
+            optionalAttachment = attachmentRepository.findById(productDto.getPhotoId());
+            if (optionalAttachment.isEmpty()) {
+                return new Result("Such a photo doesn't exist", false);
+
+            }
+            product.setPhoto(optionalAttachment.get());
         }
+
 
         Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
         if (optionalMeasurement.isEmpty()) {
@@ -105,10 +119,8 @@ public class ProductService {
 
         }
 
-        Product product = optionalProduct.get();
         product.setName(productDto.getName());
         product.setCategory(optionalCategory.get());
-        product.setPhoto(optionalAttachment.get());
         product.setMeasurement(optionalMeasurement.get());
 
         productRepository.save(product);
